@@ -31,10 +31,5 @@ public enum ExpenseCategories {
 	 * Will need extra mileage parameter to calculate total
 	 * amount to be deducted. 54.5 cents * mileage.
 	 */
-	DRIVE_MILEAGE,
-	/*
-	 * When using other, will need a mandatory description
-	 * of what this is.
-	 */
-	OTHER
+	DRIVE_MILEAGE
 }
