@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * an expense, will need to simply delete and create a new expense.
  * 
  * @author Last Place
- * @author Kris Wollf
+ * @author Kris Wolff
  */
 public class Expense {
 	
