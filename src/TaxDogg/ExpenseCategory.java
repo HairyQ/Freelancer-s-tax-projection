@@ -6,7 +6,7 @@ package TaxDogg;
  * 
  * @author Last Place
  */
-public enum ExpenseCategories {
+public enum ExpenseCategory {
 	/*
 	 * All can fall into same case where we will need to enter
 	 * cost, name. These have no extra parameters to the deductible
