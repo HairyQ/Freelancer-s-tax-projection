@@ -44,4 +44,41 @@ public class User {
 		return this.employed;
 	}
 	
+	public double getTaxableIncome()
+	{
+		return 0;
+	}
+	
+	public double getPredictedTax(double taxableIncome)
+	{
+		double x = taxableIncome;
+		
+		if (taxStatus == TaxStatus.SINGLE) {
+			if (x <= 9525)
+				return 0.1 * x;
+			if ((9525 < x)  && (x <= 38700))
+				return ((x-9525) * 0.12) + 952.5;
+			if ((38700 < x) && (x <= 82500))
+				return ((x-38700) * 0.22) + 4453.5;
+			if ((82500 < x) && (x <= 157500))
+				return ((x-82500) * 0.24) + 14089.5;
+			if ((157500 < x) && (x <= 200000))
+				return ((x-157500) * 0.32) + 32089.5;
+			if ((200000 < x) && (x <= 500000))
+				return ((x-200000) * 0.35) + 45689.5;
+			if (x > 500000)
+				return ((x-500000) * 0.37) + 150689.5;
+		}
+		else if (taxStatus == TaxStatus.HEAD_OF_HOUSEHOLD) {
+			
+		}
+		else if (taxStatus == TaxStatus.MARRIED_SEPERATE) {
+			
+		}
+		else if (taxStatus == TaxStatus.MARRIED_JOINT) {
+			
+		}
+		return 0;
+	}
+	
 }

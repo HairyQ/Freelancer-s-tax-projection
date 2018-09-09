@@ -9,7 +9,8 @@ package TaxDogg;
 public enum TaxStatus {
 
 	SINGLE,
-	MARRIED,
+	MARRIED_SEPERATE,
+	MARRIED_JOINT,
 	HEAD_OF_HOUSEHOLD
 	
 }
