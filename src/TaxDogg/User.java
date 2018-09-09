@@ -44,8 +44,50 @@ public class User {
 		return this.employed;
 	}
 	
+	public double getGrossIncome()
+	{
+		double income = 0;
+		for (Project proj : projects)
+		{
+			income += proj.getIncome();
+		}
+		return income;
+	}
+	
+	public double getFinalExpenses()
+	{
+		double cost = 0;
+		for (Expense exp : expenses)
+		{
+			cost += exp.getExpenseDeductible();
+		}
+		return cost;
+	}
+	
+	public int getStandardDeduction()
+	{
+		if (taxStatus == TaxStatus.MARRIED_JOINT)
+			return 24000;
+		else if (taxStatus == TaxStatus.HEAD_OF_HOUSEHOLD)
+			return 18000;
+		else
+			return 12000;
+	}
+	
+	public double getSelfEmploymentTax()
+	{
+		double incomeFromBiz = getGrossIncome() * 0.9235;
+		double medicare = incomeFromBiz * 0.029;
+		
+		if (incomeFromBiz <= 128400)
+			return (incomeFromBiz * 0.153) / 2;
+		else
+			return (medicare + (128400 * 0.124)) / 2;
+	}
+	
 	public double getTaxableIncome()
 	{
+		
 		return 0;
 	}
 	
@@ -80,5 +122,4 @@ public class User {
 		}
 		return 0;
 	}
-	
 }
