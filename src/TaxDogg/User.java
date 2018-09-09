@@ -25,8 +25,8 @@ public class User {
 		this.employed = employed;
 		this.projects = new ArrayList<Project>();
 		this.expenses = new ArrayList<Expense>();
-		this.netIncome = 0;
-		this.predictedTax = 0;
+		this.netIncome = getGrossIncome();
+		this.predictedTax = getPredictedTax(getTaxableIncome());
 	}
 	
 	public String getName()
@@ -87,77 +87,76 @@ public class User {
 	
 	public double getTaxableIncome()
 	{
-		
-		return 0;
+		double taxOwed = 0;
+		double adjustments = getSelfEmploymentTax() + 1200;
+		return getGrossIncome() - getStandardDeduction();
 	}
 	
 	public double getPredictedTax(double taxableIncome)
 	{
-		double x = taxableIncome;
-		
 		if (taxStatus == TaxStatus.SINGLE) {
-			if (x <= 9525)
-				return 0.1 * x;
-			if ((9525 < x)  && (x <= 38700))
-				return ((x-9525) * 0.12) + 952.5;
-			if ((38700 < x) && (x <= 82500))
-				return ((x-38700) * 0.22) + 4453.5;
-			if ((82500 < x) && (x <= 157500))
-				return ((x-82500) * 0.24) + 14089.5;
-			if ((157500 < x) && (x <= 200000))
-				return ((x-157500) * 0.32) + 32089.5;
-			if ((200000 < x) && (x <= 500000))
-				return ((x-200000) * 0.35) + 45689.5;
-			if (x > 500000)
-				return ((x-500000) * 0.37) + 150689.5;
+			if (taxableIncome <= 9525)
+				return 0.1 * taxableIncome;
+			if ((9525 < taxableIncome)  && (taxableIncome <= 38700))
+				return ((taxableIncome-9525) * 0.12) + 952.5;
+			if ((38700 < taxableIncome) && (taxableIncome <= 82500))
+				return ((taxableIncome-38700) * 0.22) + 4453.5;
+			if ((82500 < taxableIncome) && (taxableIncome <= 157500))
+				return ((taxableIncome-82500) * 0.24) + 14089.5;
+			if ((157500 < taxableIncome) && (taxableIncome <= 200000))
+				return ((taxableIncome-157500) * 0.32) + 32089.5;
+			if ((200000 < taxableIncome) && (taxableIncome <= 500000))
+				return ((taxableIncome-200000) * 0.35) + 45689.5;
+			if (taxableIncome > 500000)
+				return ((taxableIncome-500000) * 0.37) + 150689.5;
 		}
 		else if (taxStatus == TaxStatus.HEAD_OF_HOUSEHOLD) {
-			if (x <= 13600)
-				return 0.1 * x;
-			if ((13600 < x) && (x <= 51800))
-				return ((x-13600) * 0.12) + 1360;
-			if ((51800 < x) && (x <= 82500))
-				return ((x-51800) * 0.22) + 5944;
-			if ((82500 < x) && (x <= 157500)) 
-				return ((x-82500) * 0.24) + 12698;
-			if ((157500 < x) && (x <= 200000))
-				return ((x-157500) * 0.32) + 30698;
-			if ((200000 < x) && (x <= 500000)) 
-				return ((x-200000) * 0.35) + 44298;
-			if (x > 500000)
-				return ((x-500000) * 0.37) + 149298;
+			if (taxableIncome <= 13600)
+				return 0.1 * taxableIncome;
+			if ((13600 < taxableIncome) && (taxableIncome <= 51800))
+				return ((taxableIncome-13600) * 0.12) + 1360;
+			if ((51800 < taxableIncome) && (taxableIncome <= 82500))
+				return ((taxableIncome-51800) * 0.22) + 5944;
+			if ((82500 < taxableIncome) && (taxableIncome <= 157500)) 
+				return ((taxableIncome-82500) * 0.24) + 12698;
+			if ((157500 < taxableIncome) && (taxableIncome <= 200000))
+				return ((taxableIncome-157500) * 0.32) + 30698;
+			if ((200000 < taxableIncome) && (taxableIncome <= 500000)) 
+				return ((taxableIncome-200000) * 0.35) + 44298;
+			if (taxableIncome > 500000)
+				return ((taxableIncome-500000) * 0.37) + 149298;
 		}
 		else if (taxStatus == TaxStatus.MARRIED_SEPERATE) {
-			if (x <= 9525)
-				return 0.1 * x;
-			if ((9525 < x) && (x <= 38700))
-				return ((x-9525) * 0.12) + 952.50;
-			if ((38700 < x) && (x <= 82500))
-				return ((x-38700) * 0.22) + 4453.50;
-			if ((82500 < x) && (x <= 157500))
-				return ((x-82500) * 0.24) + 14089.50;
-			if ((157500 < x) && (x <= 200000))
-				return ((x-157500) * 0.32) + 32089.50;
-			if ((200000 < x) && (x <= 300000))
-				return ((x-200000) * 0.35) + 45689.50;
-			if (300000 < x)
-				return ((x-300000) * 0.37) + 80689.50;
+			if (taxableIncome <= 9525)
+				return 0.1 * taxableIncome;
+			if ((9525 < taxableIncome) && (taxableIncome <= 38700))
+				return ((taxableIncome-9525) * 0.12) + 952.50;
+			if ((38700 < taxableIncome) && (taxableIncome <= 82500))
+				return ((taxableIncome-38700) * 0.22) + 4453.50;
+			if ((82500 < taxableIncome) && (taxableIncome <= 157500))
+				return ((taxableIncome-82500) * 0.24) + 14089.50;
+			if ((157500 < taxableIncome) && (taxableIncome <= 200000))
+				return ((taxableIncome-157500) * 0.32) + 32089.50;
+			if ((200000 < taxableIncome) && (taxableIncome <= 300000))
+				return ((taxableIncome-200000) * 0.35) + 45689.50;
+			if (300000 < taxableIncome)
+				return ((taxableIncome-300000) * 0.37) + 80689.50;
 		}
 		else if (taxStatus == TaxStatus.MARRIED_JOINT) {
-			if (x <= 19050)
-				return 0.1 * x;
-			if ((19050 < x) && (x <= 77400))
-				return ((x-19050) * 0.12) + 1905;
-			if ((77400 < x) && (x <= 165000))
-				return ((x-77400) * 0.22) + 8907;
-			if ((165000 < x) && (x <= 315000))
-				return ((x-16500) * 0.24) + 28179;
-			if ((315000 < x) && (x <= 400000))
-				return ((x-400000) * 0.32) + 64179;
-			if ((400000 < x) && (x <= 600000))
-				return ((x-400000) * 0.35) + 91379;
-			if (x < 600000) 
-				return ((x-600000) * 0.37) + 161379;
+			if (taxableIncome <= 19050)
+				return 0.1 * taxableIncome;
+			if ((19050 < taxableIncome) && (taxableIncome <= 77400))
+				return ((taxableIncome-19050) * 0.12) + 1905;
+			if ((77400 < taxableIncome) && (taxableIncome <= 165000))
+				return ((taxableIncome-77400) * 0.22) + 8907;
+			if ((165000 < taxableIncome) && (taxableIncome <= 315000))
+				return ((taxableIncome-16500) * 0.24) + 28179;
+			if ((315000 < taxableIncome) && (taxableIncome <= 400000))
+				return ((taxableIncome-400000) * 0.32) + 64179;
+			if ((400000 < taxableIncome) && (taxableIncome <= 600000))
+				return ((taxableIncome-400000) * 0.35) + 91379;
+			if (taxableIncome < 600000) 
+				return ((taxableIncome-600000) * 0.37) + 161379;
 		}
 		return 0;
 	}
